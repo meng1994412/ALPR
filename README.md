@@ -5,8 +5,9 @@
 ## Software/Packages Used
 * Python 3.5
 * [OpenCV](https://docs.opencv.org/3.4.1/) 3.4
-* [Imutils](https://github.com/jrosebr1/imutils)
 * [Scikit-Learn](http://scikit-learn.org/stable/)
+* [Scikit-Image](http://scikit-image.org/docs/0.13.x/)
+* [Imutils](https://github.com/jrosebr1/imutils)
 
 ## Algorithms & Methods Used
 * License plate localization
@@ -18,6 +19,8 @@
   * Utilize contour properties to prune license plate candidates.
 * Characters segmentation
   * Apply perspective transform to extract license plate region from car, obtaining a top-down, bird’s eye view more suitable for character segmentation.
+    * 4-point transform
+    * Adaptive thresholding
   * Perform a connected component analysis on the license plate region to find character-like sections of the image.
   * Utilize contour properties to segment the foreground license plate characters from the background of the license plate.
 
@@ -50,4 +53,17 @@ Though there are some false positive cases, such as Figure 3 shown below, this p
 
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/localization_false_01.png" width="400">
 
+Figure 3: False positive case for license plate localization.
+
 ### Characters Segmentation
+Figure 4 & Figure 5 illustrate the process of segmenting the characters on license plate .
+
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_1.png" width="500">
+
+Figure 4: Process of segmenting the characters in license plate for sample # 1.
+
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_2.png" width="500">
+
+Figure 5: Process of segmenting the characters in license plate for sample # 2.
+
+Since the original license plate the dataset could be distorted or skewed, which could hurt the performance of character classification later in the pipeline, a perspective transform is applied to obtain a top-down, 90-degree viewing angle of the license plate, as top left image shown.
