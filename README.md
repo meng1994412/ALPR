@@ -66,4 +66,12 @@ Figure 4: Process of segmenting the characters in license plate for sample # 1.
 
 Figure 5: Process of segmenting the characters in license plate for sample # 2.
 
-Since the original license plate the dataset could be distorted or skewed, which could hurt the performance of character classification later in the pipeline, a perspective transform is applied to obtain a top-down, 90-degree viewing angle of the license plate, as top left image shown.
+Since the original license plate the dataset could be distorted or skewed, which could hurt the performance of character classification later in the pipeline, a perspective transform is applied to obtain a top-down, 90-degree viewing angle of the license plate, as top part of right image shown.
+
+By applying adaptive thresholding to the license plate image, the gap between characters and other things (eg. bolt, license plate frame, special symbols) can be clearly visible, as middle part of right image shown.
+
+By applying connected component analysis and computing convex hull to the thresholded image, character-like regions can be found, as bottom part of right image shown.
+
+### Character Scissoring
+
+ 
