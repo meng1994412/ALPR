@@ -1,6 +1,10 @@
 # Automatic License Plate Recognition
 ## Project Objectives
-
+* Developed a program to recognize automatic license plates based on limited dataset.
+* Localized license plate by applying morphological operations and utilizing contour properties.
+* Segmented character-like regions of the license plates by applying perspective transforms, performing a connected component analysis, and utilizing contour properties.
+* Scissored the true characters from previous step by pruning extraneous license plate character candidates, and extracting each character from binary image to create a training set for building classifiers.
+* Extracted BBPS features from the training set and Built two SVM classifiers for recognizing the letters and numbers of the license plate.  
 
 ## Software/Packages Used
 * Python 3.5
@@ -24,13 +28,15 @@
   * Perform a connected component analysis on the license plate region to find character-like sections of the image.
     * Convex hull
   * Utilize contour properties to segment the foreground license plate characters from the background of the license plate.
-* Develop and implement a heuristic to prune extraneous license plate character candidates, leaving with only the real characters.
-* Define a method to extract each of the license plate characters from the binary image.
-* Extract and label license character examples from license plate dataset.
-* Extract block-binary-pixel-sum (BBPS) features from real-world license plate character examples.
-  * Block-binary-pixel-sum descriptor
-* Train two classifiers on the BBPS features: one classifier for letter recognition and a second classifier for digit recognition.
-  * Support vector machine
+* Character Scissoring
+  * Develop and implement a heuristic to prune extraneous license plate character candidates, leaving with only the real characters.
+  * Define a method to extract each of the license plate characters from the binary image.
+* Character Classification
+  * Extract and label license character examples from license plate dataset.
+  * Extract block-binary-pixel-sum (BBPS) features from real-world license plate character examples.
+    * Block-binary-pixel-sum descriptor
+  * Train two classifiers on the BBPS features: one classifier for letter recognition and a second classifier for digit recognition.
+    * Support vector machine
 
 ## Approaches
 * The dataset is obtained from [Medialab group](http://www.medialab.ntua.gr/research/LPRdatabase.html), National Technical University of Athens in Greece.
@@ -97,3 +103,13 @@ After applying a scissoring method, each character can be segmented, which will 
 
 ### Character classification
 Extracted character examples can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output/examples). Letter and number classifier can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output), which is named [char.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/char.cpickle) and [digit.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/digit.cpickle).
+
+Figure 8 & Figure 9 shows the final results of two samples recognizing the license plate.
+
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/license_plate_recognition_1.png" width="400">
+
+Figure 8: Final results for recognizing the license plate for sample # 1.
+
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/license_plate_recognition_2.png" width="400">
+
+Figure 9: Final results for recognizing the license plate for sample # 2.
