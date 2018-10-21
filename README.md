@@ -22,7 +22,15 @@
     * 4-point transform
     * Adaptive thresholding
   * Perform a connected component analysis on the license plate region to find character-like sections of the image.
+    * Convex hull
   * Utilize contour properties to segment the foreground license plate characters from the background of the license plate.
+* Develop and implement a heuristic to prune extraneous license plate character candidates, leaving with only the real characters.
+* Define a method to extract each of the license plate characters from the binary image.
+* Extract and label license character examples from license plate dataset.
+* Extract block-binary-pixel-sum (BBPS) features from real-world license plate character examples.
+  * Block-binary-pixel-sum descriptor
+* Train two classifiers on the BBPS features: one classifier for letter recognition and a second classifier for digit recognition.
+  * Support vector machine
 
 ## Approaches
 * The dataset is obtained from [Medialab group](http://www.medialab.ntua.gr/research/LPRdatabase.html), National Technical University of Athens in Greece.
@@ -43,7 +51,7 @@ Figure 1: Process of localizing the license plate for sample # 1.
 
 Figure 2: Process of localizing the license plate for sample # 2.
 
-In the process, the top left image is blackhat operation to reveal the dark text of license plate characters against the light background. the top middle image is thresholding to reveal light region. The top right image computes the gradient along the x-axis of blackhat image. Comparing to to the top left image, the top right image has highlighted regions that contain strong vertical edge, eg. characters on license plate.
+In the process, the top left image is blackhat operation to reveal the dark text of license plate characters against the light background. the top middle image is thresholding to reveal light region. The top right image computes the gradient along the x-axis of blackhat image. Comparing to to the top left image, the top right image has highlighted regions that contain strong vertical edge, e.g. characters on license plate.
 
 The bottom left image applys rectangular closing operation to close gaps between the license plate characters. Then Otsu automatic thresholding is used on the closed image to obtain binary representation.The bottom middle image uses a series of erosions and dilations to clean up the binary image and remove the regions that do not interest us. Bottom right image has been further cleaned up by applying a bitwise and on the threshold image, keeping on the light regions of the image.
 
@@ -56,7 +64,7 @@ Though there are some false positive cases, such as Figure 3 shown below, this p
 Figure 3: False positive case for license plate localization.
 
 ### Characters Segmentation
-Figure 4 & Figure 5 illustrate the process of segmenting the characters on license plate .
+Figure 4 & Figure 5 illustrate the process of segmenting the characters on license plate.
 
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_1.png" width="500">
 
@@ -68,10 +76,24 @@ Figure 5: Process of segmenting the characters in license plate for sample # 2.
 
 Since the original license plate the dataset could be distorted or skewed, which could hurt the performance of character classification later in the pipeline, a perspective transform is applied to obtain a top-down, 90-degree viewing angle of the license plate, as top part of right image shown.
 
-By applying adaptive thresholding to the license plate image, the gap between characters and other things (eg. bolt, license plate frame, special symbols) can be clearly visible, as middle part of right image shown.
+By applying adaptive thresholding to the license plate image, the gap between characters and other things (e.g. bolt, license plate frame, special symbols) can be clearly visible, as middle part of right image shown.
 
 By applying connected component analysis and computing convex hull to the thresholded image, character-like regions can be found, as bottom part of right image shown.
 
 ### Character Scissoring
+Figure 6 & Figure 7 show the processing of scissoring the character on the license plate.
 
- 
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_1.png" width="500">
+
+Figure 6: Process of scissoring the character on licensen plate for sample # 1.
+
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_2.png" width="500">
+
+Figure 7: Process of scissoring the character on licensen plate for sample # 2.
+
+The top 2 images in the middle part of both figures are from previous step. After applying a character-like region pruning method, true character regions are found, as shown in bottom two images in the middle part.
+
+After applying a scissoring method, each character can be segmented, which will be useful for building the SVM model later.
+
+### Character classification
+Extracted character examples can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output/examples). Letter and number classifier can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output), which is named [char.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/char.cpickle) and [digit.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/digit.cpickle).
