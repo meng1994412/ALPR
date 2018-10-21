@@ -49,11 +49,11 @@
 ### License Plate Localization
 Figure 1 & Figure 2 demonstrate the two sample process of localizing the license plate.
 
-<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/localization_1.png" width="500">
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/localization_1.png" width="900">
 
 Figure 1: Process of localizing the license plate for sample # 1.
 
-<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/localization_2.png" width="500">
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/localization_2.png" width="900">
 
 Figure 2: Process of localizing the license plate for sample # 2.
 
@@ -72,11 +72,11 @@ Figure 3: False positive case for license plate localization.
 ### Characters Segmentation
 Figure 4 & Figure 5 illustrate the process of segmenting the characters on license plate.
 
-<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_1.png" width="500">
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_1.png" width="800">
 
 Figure 4: Process of segmenting the characters in license plate for sample # 1.
 
-<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_2.png" width="500">
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_2.png" width="800">
 
 Figure 5: Process of segmenting the characters in license plate for sample # 2.
 
@@ -89,11 +89,11 @@ By applying connected component analysis and computing convex hull to the thresh
 ### Character Scissoring
 Figure 6 & Figure 7 show the processing of scissoring the character on the license plate.
 
-<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_1.png" width="500">
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_1.png" width="800">
 
 Figure 6: Process of scissoring the character on licensen plate for sample # 1.
 
-<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_2.png" width="500">
+<img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_2.png" width="800">
 
 Figure 7: Process of scissoring the character on licensen plate for sample # 2.
 
