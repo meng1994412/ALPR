@@ -26,6 +26,7 @@
     * 4-point transform
     * Adaptive thresholding
   * Perform a connected component analysis on the license plate region to find character-like sections of the image.
+    * 8-connectivity component analysis
     * Convex hull
   * Utilize contour properties to segment the foreground license plate characters from the background of the license plate.
 * Character Scissoring
