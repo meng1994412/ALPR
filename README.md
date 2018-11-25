@@ -115,4 +115,3 @@ Figure 8: Final results for recognizing the license plate for sample # 1.
 
 Figure 9: Final results for recognizing the license plate for sample # 2.
 
-[here](https://drive.google.com/open?id=1Aq_MKlnard0B2G1EMRlaa7eEtTRq98mu)
