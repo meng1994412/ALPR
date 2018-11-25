@@ -114,3 +114,5 @@ Figure 8: Final results for recognizing the license plate for sample # 1.
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/license_plate_recognition_2.png" width="400">
 
 Figure 9: Final results for recognizing the license plate for sample # 2.
+
+<img src="https://drive.google.com/open?id=1pvb8lPNSXizwjpiAiOvf3v-B1f04wJNt" width="400">
