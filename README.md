@@ -58,9 +58,19 @@ Figure 1: Process of localizing the license plate for sample # 1.
 
 Figure 2: Process of localizing the license plate for sample # 2.
 
-In the process, the top left image is blackhat operation to reveal the dark text of license plate characters against the light background. the top middle image is thresholding to reveal light region. The top right image computes the gradient along the x-axis of blackhat image. Comparing to to the top left image, the top right image has highlighted regions that contain strong vertical edge, e.g. characters on license plate.
-
-The bottom left image applys rectangular closing operation to close gaps between the license plate characters. Then Otsu automatic thresholding is used on the closed image to obtain binary representation.The bottom middle image uses a series of erosions and dilations to clean up the binary image and remove the regions that do not interest us. Bottom right image has been further cleaned up by applying a bitwise and on the threshold image, keeping on the light regions of the image.
+The process of morphological operations:
+1. Blackhat operation (top-left): reveal dark text of license plate characters against light background.
+2. Thresholding operation (top-middle): reval light region.
+3. Solbel gradient along x-axis:
+  * license plate characters become more predominant as comapre to blackhat image (top-left).
+  * reduce some of the "noise" in the image.
+4. Gaussian blur: smooth details & noises.
+5. Closing operation: close gaps between the license plate characters.
+6. OTSU's thresholded: obtain binary repsentation
+7. Erosion & Dilation: clean up the binary image and remove regions that do not interest us.
+8. Bitwise AND & Erosion, Dilation:
+  * keep only thresholded regions of the image that are also brighter than rest of image
+  * further clean up the image
 
 Finally, the bottom far right image shows the results after series operations.  
 
@@ -114,4 +124,3 @@ Figure 8: Final results for recognizing the license plate for sample # 1.
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/license_plate_recognition_2.png" width="400">
 
 Figure 9: Final results for recognizing the license plate for sample # 2.
-
