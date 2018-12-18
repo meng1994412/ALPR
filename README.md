@@ -60,15 +60,15 @@ Figure 2: Process of localizing the license plate for sample # 2.
 
 The process of morphological operations:
 1. Blackhat operation (top-left): reveal dark text of license plate characters against light background.
-2. Thresholding operation (top-middle): reval light region.
-3. Solbel gradient along x-axis
+2. Thresholding operation (top-middle): reval light region. **This operation comes in handy when pruning regions of the image to examine.**
+3. Solbel gradient along x-axis (top-right):
     * license plate characters become more predominant as comapre to blackhat image (top-left).
-    * reduce some of the "noise" in the image.
+    * reduce some of the "noise" in the image by ignoring changes to the x-axis gradient.
 4. Gaussian blur: smooth details & noises.
 5. Closing operation: close gaps between the license plate characters.
-6. OTSU's thresholded: obtain binary repsentation
-7. Erosion & Dilation: clean up the binary image and remove regions that do not interest us.
-8. Bitwise AND & Erosion, Dilation:
+6. OTSU's thresholded (bottom-left): obtain binary repsentation, combined with previous step to reveal rectangular region.
+7. Erosion & Dilation (bottom-middle): clean up the binary image and remove regions that do not interest us.
+8. Bitwise AND & Erosion, Dilation (bottom-right):
     * keep only thresholded regions of the image that are also brighter than rest of image
     * further clean up the image
 
@@ -81,6 +81,14 @@ Though there are some false positive cases, such as Figure 3 shown below, this p
 Figure 3: False positive case for license plate localization.
 
 ### Characters Segmentation
+Since the original license plate the dataset could be distorted or skewed, which could hurt the performance of character classification later in the pipeline, a perspective transform is applied to obtain a top-down, 90-degree viewing angle of the license plate, as top part of right image shown.
+
+By applying adaptive thresholding to the license plate image, the gap between characters and other things (e.g. bolt, license plate frame, special symbols) can be clearly visible, as middle part of right image shown.
+
+By applying connected component analysis and computing convex hull to the thresholded image, character-like regions can be found, as bottom part of right image shown.
+
+However, there were a few outlier cases where connected component analysis accidentally marked extraneous regions (normally blobs on the outskirts of the license plate image) as license plate character candidates. These false positive cases will be solve in the next step.
+
 Figure 4 & Figure 5 illustrate the process of segmenting the characters on license plate.
 
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_segmentation_1.png" width="800">
@@ -91,29 +99,25 @@ Figure 4: Process of segmenting the characters in license plate for sample # 1.
 
 Figure 5: Process of segmenting the characters in license plate for sample # 2.
 
-Since the original license plate the dataset could be distorted or skewed, which could hurt the performance of character classification later in the pipeline, a perspective transform is applied to obtain a top-down, 90-degree viewing angle of the license plate, as top part of right image shown.
-
-By applying adaptive thresholding to the license plate image, the gap between characters and other things (e.g. bolt, license plate frame, special symbols) can be clearly visible, as middle part of right image shown.
-
-By applying connected component analysis and computing convex hull to the thresholded image, character-like regions can be found, as bottom part of right image shown.
-
 ### Character Scissoring
 Figure 6 & Figure 7 show the processing of scissoring the character on the license plate.
 
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_1.png" width="900">
 
-Figure 6: Process of scissoring the character on licensen plate for sample # 1.
+Figure 6: Process of scissoring the character on license plate for sample # 1.
 
 <img src="https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/milestone_demo/character_scissoring_2.png" width="900">
 
-Figure 7: Process of scissoring the character on licensen plate for sample # 2.
+Figure 7: Process of scissoring the character on license plate for sample # 2.
 
 The top 2 images in the middle part of both figures are from previous step. After applying a character-like region pruning method, true character regions are found, as shown in bottom two images in the middle part.
 
 After applying a scissoring method, each character can be segmented, which will be useful for building the SVM model later.
 
 ### Character classification
-Extracted character examples can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output/examples). Letter and number classifier can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output), which is named [char.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/char.cpickle) and [digit.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/digit.cpickle).
+Extracted character examples can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output/examples). Letter and number classifier can be found [here](https://github.com/meng1994412/ALPR/tree/master/automatic_license_number_recognition/output), which is named `char.cpickle` ([check here](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/char.cpickle)) and `digit.cpickle` ([digit.cpickle](https://github.com/meng1994412/ALPR/blob/master/automatic_license_number_recognition/output/digit.cpickle)).
+
+The Block-Binary-Pixel-Sum (BBPS) descriptor is used to extract feature vectors from each character from previous step. And feature vectors are used to train the SVM model. BBPS divides an image into non-overlapping M x N pixel blocks. For each of these regions, the ratio of foreground (i.e., thresholded character) pixels to the total number of pixels in each block is calculated. These ratios are collected and returned as the final feature vector.
 
 Figure 8 & Figure 9 shows the final results of two samples recognizing the license plate.
 
