@@ -61,8 +61,8 @@ Figure 2: Process of localizing the license plate for sample # 2.
 The process of morphological operations:
 1. Blackhat operation (top-left): reveal dark text of license plate characters against light background.
 2. Thresholding operation (top-middle): reval light region.
-3. Solbel gradient along x-axis:
-   - license plate characters become more predominant as comapre to blackhat image (top-left).
+3. Solbel gradient along x-axis
+    * license plate characters become more predominant as comapre to blackhat image (top-left).
    - reduce some of the "noise" in the image.
 4. Gaussian blur: smooth details & noises.
 5. Closing operation: close gaps between the license plate characters.
