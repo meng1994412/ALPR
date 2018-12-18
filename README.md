@@ -63,14 +63,14 @@ The process of morphological operations:
 2. Thresholding operation (top-middle): reval light region.
 3. Solbel gradient along x-axis
     * license plate characters become more predominant as comapre to blackhat image (top-left).
-   - reduce some of the "noise" in the image.
+    * reduce some of the "noise" in the image.
 4. Gaussian blur: smooth details & noises.
 5. Closing operation: close gaps between the license plate characters.
 6. OTSU's thresholded: obtain binary repsentation
 7. Erosion & Dilation: clean up the binary image and remove regions that do not interest us.
 8. Bitwise AND & Erosion, Dilation:
-   - keep only thresholded regions of the image that are also brighter than rest of image
-   - further clean up the image
+    * keep only thresholded regions of the image that are also brighter than rest of image
+    * further clean up the image
 
 Finally, the bottom far right image shows the results after series operations.  
 
