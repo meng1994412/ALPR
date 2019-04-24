@@ -60,7 +60,7 @@ Figure 2: Process of localizing the license plate for sample # 2.
 
 The process of morphological operations:
 1. Blackhat operation (top-left): reveal dark text of license plate characters against light background.
-2. Thresholding operation (top-middle): reval light region. **This operation comes in handy when pruning regions of the image to examine.**
+2. Closing + Thresholding operation (top-middle): reval light region. **This operation comes in handy when pruning regions of the image to examine.**
 3. Solbel gradient along x-axis (top-right):
     * license plate characters become more predominant as comapre to blackhat image (top-left).
     * reduce some of the "noise" in the image by ignoring changes to the x-axis gradient.
@@ -69,7 +69,7 @@ The process of morphological operations:
 6. OTSU's thresholded (bottom-left): obtain binary repsentation, combined with previous step to reveal rectangular region.
 7. Erosion & Dilation (bottom-middle): clean up the binary image and remove regions that do not interest us.
 8. Bitwise AND & Erosion, Dilation (bottom-right):
-    * keep only thresholded regions of the image that are also brighter than rest of image
+    * keep only thresholded regions of the image that are also brighter than rest of image (using #2 as the mask)
     * further clean up the image
 
 Finally, the bottom far right image shows the results after series operations.  
