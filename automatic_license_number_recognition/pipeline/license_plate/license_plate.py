@@ -90,13 +90,19 @@ class LicensePlateDetector:
 			(w, h) = cv2.boundingRect(c)[2:]
 			aspectRatio = w / float(h)
 
+			# calculate extent for additional filtering
+			shapeArea = cv2.contourArea(c)
+			boundingboxArea = w * h
+			extent = shapeArea / float(boundingboxArea)
+			extent = int(extent * 100) / 100
+
 			# compute the rotated bounding box of the region
 			rect = cv2.minAreaRect(c)
 			box = cv2.boxPoints(rect)
 
 			# ensure the aspect ratio, width, and height of the bounding box fall within
 			# tolerable limits, then update the list of license plate regions
-			if (aspectRatio > 3 and aspectRatio < 6) and h > self.minPlateH and w > self.minPlateW:
+			if (aspectRatio > 3 and aspectRatio < 6) and h > self.minPlateH and w > self.minPlateW and extent > 0.50:
 				regions.append(box)
 
 		# return the list of license plate regions
